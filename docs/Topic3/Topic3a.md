@@ -1,2 +1,3 @@
 # Topic 3a
-A site to Explore using MarkDown for documentation
+
+This is Part (a) of the THIRD top level topic.

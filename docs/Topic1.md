@@ -1,2 +1,3 @@
 # Topic 1
-A site to Explore using MarkDown for documentation
+
+This is the FIRST top level topic in this project.
