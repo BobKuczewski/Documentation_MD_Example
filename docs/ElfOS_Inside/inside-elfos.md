@@ -1,5 +1,5 @@
 # Inside Elf/OS
-Version 0.2.7 by Michael H. Riley
+Version 0.2.7 by Michael H. Riley with Markdown formatting by David S. Madole
 
 ## Introduction
 
