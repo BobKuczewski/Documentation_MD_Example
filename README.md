@@ -3,6 +3,7 @@
 
 This entire site is generated from [Markdown Source Code.](https://github.com/BobKuczewski/Documentation_MD_Example)
 
+- [FourStix new Pages as .md files](docs/FourStix/README.md)
 - [General](#general)
 - [Topic 1](docs/Topic1.md)
 - [Topic 2](docs/Topic2.md)
