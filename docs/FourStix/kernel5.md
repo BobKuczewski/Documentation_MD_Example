@@ -1,4 +1,5 @@
 Elf/OS API calls
+
 | Name         | Function    | Description |
 |--------------|-------------|-------------|
 | o_coldboot   | 0300h       | Cold boot |
@@ -55,6 +56,7 @@ Elf/OS API calls
 | d_freedirent | 046Dh       | Find a free DIRENT |
 
 Elf/OS Kernel Information
+
 | Name         | Description |
 |--------------|-------------|
 | k_fildes     | Elf/OS File Descriptor Fileds |
@@ -199,3 +201,4 @@ sector 0 data:
                   master directory
 
 
+
