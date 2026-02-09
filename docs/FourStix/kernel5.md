@@ -1,4 +1,4 @@
-Elf/OS API calls
+## Elf/OS API calls
 
 | Name         | Function    | Description |
 |--------------|-------------|-------------|
@@ -55,7 +55,7 @@ Elf/OS API calls
 | d_allocau    | 045Eh       | Allocate an AU |
 | d_freedirent | 046Dh       | Find a free DIRENT |
 
-Elf/OS Kernel Information
+## Elf/OS Kernel Information
 
 | Name         | Description |
 |--------------|-------------|
@@ -63,7 +63,7 @@ Elf/OS Kernel Information
 | k_sector0    | Elf/OS Sector Zero Information |
 | k_memory     | Elf/OS Kernel Memory Variables |
 
-Useful Memory Locations:
+## Useful Memory Locations:
 
 | Addr | Name       | Size | Purpose |
 |------|------------|------|---------|
@@ -82,7 +82,7 @@ Useful Memory Locations:
 | 0430h | K_CWD_LUMP | 4 bytes | First lump of current directory |
 | 0425h | K_LASTSEC  | 4 bytes | Sector currently in sys DTA |
 
-Elf/OS Error Codes:
+## Elf/OS Error Codes:
 
 | Code | Meaning |
 |------|---------|
@@ -117,7 +117,7 @@ Elf/OS Error Codes:
 | 1d | Invalid Heap block |
 | FF | Unclassified error |
 
-Elf/OS v5 Directory Entry Fields
+## Elf/OS v5 Directory Entry Fields
 
 DIRENT
 ------
@@ -167,11 +167,13 @@ FILDES
     15-18 - Current Sector
 
 Extended FILDES
+---------------
 
     19    - Drive number
     20    - Drive fstype
 
 sector 0 data:
+-------------
 
     Offset        Meaning
     100h-103h     This entry contains the total number of sectors on the
@@ -202,5 +204,6 @@ sector 0 data:
     110h-113h     full 32-bit sector where master directory starts
     12Ch-14Ch     This area comprises the directory entry (or DIRENT) for the
                   master directory
+
 
 
