@@ -11,7 +11,7 @@
 - [File System Check (fsck)](fsck.md)
 - [Hard Drive Structure](hdstruct.md)
 - [ICalc](icalc.md)
-- [Manual Viewr](man.md)
+- [Manual Viewer](man.md)
 - [RCBASIC](rcbasic.md)
 - [ScanDir](scandir.md)
 
