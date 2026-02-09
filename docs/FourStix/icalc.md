@@ -1,3 +1,4 @@
+```
 ICALC - Simple 16-bit integer calculator
 Usage: icalc
 
@@ -104,8 +105,5 @@ Ready
 
 >~5
 -6  ($FFFA)
-
+```
 Notes: Since this is using the expression evaluator from Asm/02, the following variables also provide values: [month] [day] [year] [hour] [minute] [second] [build]  In the case of the date time variables, these will be set to the current time when the program is run if an RTC is present.  [build] will always be 0.  These values are certainly not useful for a calculator program, but again this was created as a test of the expression evaluator from Asm/02 after porting it to 1802 code.  I wanted to thoroughly test it before using it within the assembler since this is a pretty complicated section of code and I wanted to debug it in an easier way than using it within the assembler.
-
-
-
