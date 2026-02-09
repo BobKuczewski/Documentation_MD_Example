@@ -1,3 +1,4 @@
+```
 MAN - Display a manual page for a topic
 Usage: man topic
 
@@ -24,3 +25,4 @@ languages    - Programming languages for Elf/OS and Mini-DOS
 rcforth      - RC/Forth documentation
 rcpilot      - RC/Pilot documentation
 rcmouse      - RC/Mouse documentation
+```
