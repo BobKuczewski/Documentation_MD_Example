@@ -1,4 +1,4 @@
-## Elf/OS API calls
+Elf/OS API calls
 
 | Name         | Function    | Description |
 |--------------|-------------|-------------|
@@ -55,7 +55,7 @@
 | d_allocau    | 045Eh       | Allocate an AU |
 | d_freedirent | 046Dh       | Find a free DIRENT |
 
-## Elf/OS Kernel Information
+Elf/OS Kernel Information
 
 | Name         | Description |
 |--------------|-------------|
@@ -63,7 +63,7 @@
 | k_sector0    | Elf/OS Sector Zero Information |
 | k_memory     | Elf/OS Kernel Memory Variables |
 
-## Useful Memory Locations:
+Useful Memory Locations:
 
 | Addr | Name       | Size | Purpose |
 |------|------------|------|---------|
@@ -82,7 +82,7 @@
 | 0430h | K_CWD_LUMP | 4 bytes | First lump of current directory |
 | 0425h | K_LASTSEC  | 4 bytes | Sector currently in sys DTA |
 
-## Elf/OS Error Codes:
+Elf/OS Error Codes:
 
 | Code | Meaning |
 |------|---------|
@@ -117,56 +117,59 @@
 | 1d | Invalid Heap block |
 | FF | Unclassified error |
 
-## Elf/OS v5 Directory Entry Fields
+Elf/OS v5 Directory Entry Fields
 
 DIRENT
 ------
-byte   description
-0-3    First AU, 0=free entry
-4-5    eof byte
-6      flags1
-       1 - file is a subdir
-       2 - file is executable
-       4 - This bit is set to indicate file is write protected
-       8 - This bit is set to indicate file is hidden
-      16 - This bit is set to indicate file has been written to
 
-7-8    Date (see coding below)
-9-10   Time (see coding below)
-11     supplementary flags
-12-31  filename
+    byte   description
+    0-3    First AU, 0=free entry
+    4-5    eof byte
+    6      flags1
+           1 - file is a subdir
+           2 - file is executable
+           4 - This bit is set to indicate file is write protected
+           8 - This bit is set to indicate file is hidden
+          16 - This bit is set to indicate file has been written to
 
-Byte 07h   Byte 08h
-7654 3210  7654 3210
-|______||____||____|
-  YEAR    MO    DY
+    7-8    Date (see coding below)
+    9-10   Time (see coding below)
+    11     supplementary flags
+    12-31  filename
 
-Byte 09h   Byte 0Ah
-7654 3210  7654 3210
-|____||______||____|
-  HR    MIN    SEC/2
+    Byte 07h   Byte 08h
+    7654 3210  7654 3210
+    |______||____||____|
+      YEAR    MO    DY
+
+    Byte 09h   Byte 0Ah
+    7654 3210  7654 3210
+    |____||______||____|
+      HR    MIN    SEC/2
 
 FILDES
 ------
-0-3   - Current Offset
-4-5   - DTA
-6-7   - EOF byte
-8     - Flags
-        1 - sector has been written to
-        2 - file is read only
-        4 - currently have last lump
-        8 - descriptor is open
-       16 - file has been written to
-       32 - Extended FILDES
-       64 - reserved
-      128 - currently have last sector
-9-12  - Dir Sector
-13-14   - Dir Offset
-15-18 - Current Sector
+
+    0-3   - Current Offset
+    4-5   - DTA
+    6-7   - EOF byte
+    8     - Flags
+            1 - sector has been written to
+            2 - file is read only
+            4 - currently have last lump
+            8 - descriptor is open
+           16 - file has been written to
+           32 - Extended FILDES
+           64 - reserved
+          128 - currently have last sector
+    9-12  - Dir Sector
+    13-14   - Dir Offset
+    15-18 - Current Sector
 
 Extended FILDES
-19    - Drive number
-20    - Drive fstype
+
+    19    - Drive number
+    20    - Drive fstype
 
 sector 0 data:
 
@@ -199,6 +202,5 @@ sector 0 data:
     110h-113h     full 32-bit sector where master directory starts
     12Ch-14Ch     This area comprises the directory entry (or DIRENT) for the
                   master directory
-
 
 
