@@ -5,6 +5,7 @@
 - [Intro](intro.md)
 - [Inside](inside.md)
 - [Kernel 5](kernel5.md)
+- [Base 4](base4.md)
 - [Base 5](base5.md)
 - [BIOS](bios.md)
 - [File System Check (fsck)](fsck.md)
