@@ -1,4 +1,5 @@
- FSCK - File System Check
+```
+FSCK - File System Check
 Usage: fsck           - scan current disk and report errors
        fsck -f        - scan current disk and fix any errors
 
@@ -20,3 +21,4 @@ Fsck is a filesystem check tool for Elf/OS V5.  Note, this is for V5 disks only,
   I plan on writing a second tool that can be used for cross-linked lumps to find out which files are sharing a cross-linked lump, this at the least will make it easier to fix the cross-linked lump using sedit, but I may try to build into the tool the ability to separate the chains that are sharing a lump.
 
   Final warning, again this is early developmental software, so backup your disks before allowing fsck to write changes back to your disk.
+```
