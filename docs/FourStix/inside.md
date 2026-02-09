@@ -21,9 +21,9 @@ Multi-level directories are also supported by Elf/OS.
 its major functions and then diving into each of the subroutines that makes
 Elf/OS work.
 
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
------------------------------------------------------------------------------
------------------------------------------------------------------------------
 Disk Structure:
 ---------------
   Before discussing the Elf/OS source it is important to understand what the
