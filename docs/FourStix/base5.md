@@ -1,3 +1,4 @@
+```
 Elf/OS v5 Base Utilities
 
 More information is available via the help command or additional man pages.
@@ -249,3 +250,4 @@ XR will not send any additional NAKs if the first one is not responded to.
 
 XS - XMODEM sender
 Usage: XS file   - Send file using XMODEM protocol
+```

@@ -21,9 +21,9 @@ Multi-level directories are also supported by Elf/OS.
 its major functions and then diving into each of the subroutines that makes
 Elf/OS work.
 
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
------------------------------------------------------------------------------
------------------------------------------------------------------------------
 Disk Structure:
 ---------------
   Before discussing the Elf/OS source it is important to understand what the
@@ -130,21 +130,21 @@ that sector 220 belongs to lump 27.
   To find where in the LAT table a particular lump entry is, use the
 following calculations (type 1 filesystems):
 
-  LAT_Sector = (Lump / 256) + 17
-  LAT_Entry_in_Sector = Lump MOD 256
-  Offset_in_sector = LAT_Entry_in_Sector * 2
+    LAT_Sector = (Lump / 256) + 17
+    LAT_Entry_in_Sector = Lump MOD 256
+    Offset_in_sector = LAT_Entry_in_Sector * 2
 
-  To convert a LAT Sector/Entry number into the lump number, use these
+To convert a LAT Sector/Entry number into the lump number, use these
 calculations (also for type 1 filesystems):
 
-  lump = (LAT_sector - 17) * 256 + Entry_number
+    lump = (LAT_sector - 17) * 256 + Entry_number
 
-  Entry_number is obtained by taking the offset in the sector divided by 2.
+Entry_number is obtained by taking the offset in the sector divided by 2.
 
 Common Data Area:
-  After the last lump of the LAT table begins the Common Data area.  It is
-in this area that all files and directories are stored.  Normally the first
-lump of this area is allocated to the Master Directory.
+    After the last lump of the LAT table begins the Common Data area.  It is
+    in this area that all files and directories are stored.  Normally the first
+    lump of this area is allocated to the Master Directory.
 
 Directories:
 ------------
@@ -163,7 +163,7 @@ Directory has its DIRENT starting at offset 12Ch of the System Data Sector.
 All other files and directories have their DIRENTs in either the Master 
 Directory or some other subdirectory.
 
-  The structure of a DIRENT is as follows:
+The structure of a DIRENT is as follows:
 
     Offset      Meaning
     00h-03h     This field specifies which lump number is the first AU for
@@ -208,7 +208,8 @@ The FILDES is 19 bytes long and holds information necessary for the kernel
 to work on the file.  Normally you should not change any of the fields in
 an open FILDES, otherwise you could very easily corrupt your filesystem.
 
-  The following fields are part of the FILDES:
+The following fields are part of the FILDES:
+
     Offset      Meaning
     00h-03h     This field contains the current offset into the file.  This
                 field will be updated whenever the file is read or written,
@@ -462,7 +463,7 @@ Elf/OS subroutines in depth:
 
 -----------------------------------------------------------------------------
 
-append:       Append a lump to end of current file
+## append:       Append a lump to end of current file
 
   This function is called whenever a new lump needs to be added on to the
 end of a file.
@@ -501,7 +502,7 @@ control is transferred to appende:
 
 -----------------------------------------------------------------------------
 
-chdir:        Change/view current directory
+## chdir:        Change/view current directory
 
   This function is the destination of the o_chdir API call.  It is used in
 order to set the current working directory or to retrieve what the current
@@ -546,7 +547,7 @@ restored and control transferred back to the caller.
 
 -----------------------------------------------------------------------------
 
-checkeof:     Check if file is at end
+## checkeof:     Check if file is at end
 
   This function is called to determine if the current file pointer is
 pointing at the EOF byte for the file.
@@ -580,7 +581,7 @@ the caller.
 
 -----------------------------------------------------------------------------
 
-checkwrt:     Check to see if a sector needs to be written
+## checkwrt:     Check to see if a sector needs to be written
 
   This routine checks to see if the sector currently in the DTA of the
 specified FILDES needs to be written.  A sector only needs to be written
@@ -608,7 +609,7 @@ to the caller.
 
 -----------------------------------------------------------------------------
 
-cklstlmp:     Check for last lump and EOF
+## cklstlmp:     Check for last lump and EOF
 
   This function is called to see if the last loaded sector is in the final
 lump of a file.
@@ -644,7 +645,7 @@ values and returns to the caller.
 
 -----------------------------------------------------------------------------
 
-close:        Close a file
+## close:        Close a file
 
   This function is the destination of the o_close API call.  It is used to
 close an open FILDES.
@@ -689,7 +690,7 @@ to the caller.
 
 -----------------------------------------------------------------------------
 
-cmdlp:        Main command loop
+## cmdlp:        Main command loop
 
   This loop is Elf/OS's main command loop.  It is here that Elf/OS queries
 the user for a command to execute.
@@ -721,7 +722,7 @@ be displayed and control is transferred back to cmdlp: for the next command.
 
 -----------------------------------------------------------------------------
 
-coldboot:     Coldboot routine
+## coldboot:     Coldboot routine
 
   coldboot: is the target of the o_coldboot API call.  This is also the
 point at which the bootloader transfers control after the kernel is loaded
@@ -752,7 +753,7 @@ fall through to the warmboot: routine.
 
 -----------------------------------------------------------------------------
 
-create:       Create a new file
+## create:       Create a new file
 
   This routine is called in order to create a new file on the filesystem.
 It is normally called by open: and mkdir:
@@ -808,7 +809,7 @@ file into the DTA.
 
 -----------------------------------------------------------------------------
 
-delchain:     Delete a chain of lumps
+## delchain:     Delete a chain of lumps
 
   This function is called when a file is deleted or truncated.  The purpose
 of this function is to deallocate all of the lumps that were allocated to
@@ -832,9 +833,10 @@ continue deallocating lumps.
 registers are restored and control passed back to the caller.
 
   the loop at create1: zeroes out the date and time for the new file.
+
 -----------------------------------------------------------------------------
 
-delete:       Delete a file
+## delete:       Delete a file
 
   This function is the destination of the o_delete API call and is used to
 delete a file from the filesystem.
@@ -867,7 +869,7 @@ delexit: to cleanup and return to the caller.
 
 -----------------------------------------------------------------------------
 
-exec:         Execute a program
+## exec:         Execute a program
 
   This routine is the destination of the o_exec API call and is used to
 execute a program.
@@ -906,7 +908,7 @@ caller.
 
 -----------------------------------------------------------------------------
 
-execbin:      Execute a file from /bin
+## execbin:      Execute a file from /bin
 
   This function is used to execute a program located in the system default
 execution directory, usually /BIN.
@@ -930,7 +932,7 @@ up and return to the caller.
 
 -----------------------------------------------------------------------------
 
-exexdir:      Open /BIN
+## exexdir:      Open /BIN
 
   This command is used to open the systems default execution directory, 
 normally /BIN.
@@ -944,7 +946,7 @@ directory.
 
 -----------------------------------------------------------------------------
 
-finalsl:      Make sure a name has a final slash
+## finalsl:      Make sure a name has a final slash
 
   This function is called by the directory functions to enforce the pathname
 having a final slash.
@@ -963,7 +965,7 @@ the next character is set as the zero terminator.
 
 -----------------------------------------------------------------------------
 
-finddir:      Find a directory
+## finddir:      Find a directory
 
   This function is used to create a FILDES for a specified directory path.
 This function can work with both absolute as well as relatvie pathnames.
@@ -1013,7 +1015,7 @@ caller.
 
 -----------------------------------------------------------------------------
 
-findsep:      Split pathname at separator
+## findsep:      Split pathname at separator
 
   This routine will split a pathname into 2 separate parts.  The separation
 occurs at the first occurance of the / path separator character.
@@ -1042,7 +1044,7 @@ returns with DF set to indicate a non-directory name.
 
 -----------------------------------------------------------------------------
 
-follow:       Follow a directory tree
+## follow:       Follow a directory tree
 
   The purpose of this function is to find and open the last directory in
 a supplied pathname.
@@ -1072,7 +1074,7 @@ is made back to follow: to move through the next directory name.
 
 -----------------------------------------------------------------------------
 
-freedir:      Get a free directory entry
+## freedir:      Get a free directory entry
 
   This function is called in order to find an available DIRENT in the 
 currently opened directory.
@@ -1106,7 +1108,7 @@ returns to the caller.
 
 -----------------------------------------------------------------------------
 
-freelump:     Find a free lump
+## freelump:     Find a free lump
 
   This function is called in order to obtain a free lump.  It starts by
 saving all the consumed registers and then calling sector0: in order to load
@@ -1150,7 +1152,7 @@ back to freelump1: to load in the next LAT sector to be checked.
 
 -----------------------------------------------------------------------------
 
-getfddrof:    Get dir offset from file descriptor
+## getfddrof:    Get dir offset from file descriptor
 
   This function retrieves the directory offset from the FILDES pointed to
 by RD.  The dir offset is located at offset 13 in the FILDES, so RD is
@@ -1159,7 +1161,7 @@ then moves RD back to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-getfddrsc:    Get dir sector from file descriptor
+## getfddrsc:    Get dir sector from file descriptor
 
   This function obtains the directory sector entry of the FILDES pointed to
 by RD.  The dir sector is located at offset 9 in the FILDES, so RD is
@@ -1168,7 +1170,7 @@ will then move RD back to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-getfddta:     Get DTA from file descriptor
+## getfddta:     Get DTA from file descriptor
 
   This functions retrieves the DTA address from the FILDES pointed to by
 RD.  The DTA is at offsets 4 and 5 in the FILDES, so RD is incremented by
@@ -1177,7 +1179,7 @@ RD back to where it was.
 
 -----------------------------------------------------------------------------
 
-getfdeof:     Get EOF from file descriptor
+## getfdeof:     Get EOF from file descriptor
 
   This function retrieves the 2 byte EOF value from the FILDES pointed to
 by RD.  The EOF is located in offsets 6 and 7 of the FILDES, so RD is 
@@ -1186,7 +1188,7 @@ moves RD back to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-getfdflgs:    Get flags from file descriptor
+## getfdflgs:    Get flags from file descriptor
 
   This function retrieves the file flags from the FILDES pointed to by RD.
 The file flags are located at offset 8, so RD is incremented by 8 before
@@ -1196,7 +1198,7 @@ then copied back to D before returning.
 
 -----------------------------------------------------------------------------
 
-getfdofs:     Get offset from file descriptor
+## getfdofs:     Get offset from file descriptor
 
   This function retrieves the current file offset from the file descriptor
 pointed to by RD.  The current file offset is in the first 4 bytes of the
@@ -1206,7 +1208,7 @@ left at the same position as when the function was called
 
 -----------------------------------------------------------------------------
 
-getfdsec:     Get current sector from file descriptor
+## getfdsec:     Get current sector from file descriptor
 
   This function retrieves the current sector from the FILDES pointed to by
 RD.  The current sector is located at offset 15 in the FILDES, so RD is
@@ -1215,7 +1217,7 @@ fdminus18: then moves RD back to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-getsecofs:    Get current sector/offset
+## getsecofs:    Get current sector/offset
 
   This function returns the current sector in the FILDES's DTA as well as
 the offset into this sector where the file pointer is.
@@ -1235,7 +1237,7 @@ returned to the caller.
 
 -----------------------------------------------------------------------------
 
-gettmdt:      Get time and date from BIOS
+## gettmdt:      Get time and date from BIOS
 
   The purpose of this routine is to retrieve the current date and time from
 the BIOS and then convert it to the format used in DIRENTs.  If the BIOS
@@ -1261,7 +1263,7 @@ pack the date/time into the DIRENT format.
 
 -----------------------------------------------------------------------------
 
-incofs:       Increment current offset in fildes
+## incofs:       Increment current offset in fildes
 
   This function is called by read: and write: in order to update the current
 file pointer.  This routine checks to see if a sector or lump boundary is
@@ -1326,7 +1328,7 @@ return to the caller.
 
 -----------------------------------------------------------------------------
 
-lmpsecofs:    Convert lump number to latSector/latOffset
+## lmpsecofs:    Convert lump number to latSector/latOffset
 
   This function is used to find the LAT sector and LAT offset for the givin
 lump number.  The formulas for these in a type 1 filesystem are:
@@ -1355,7 +1357,7 @@ entry and R9 has the offset into that sector where the lump entry is found.
 
 -----------------------------------------------------------------------------
 
-lmpsize:      Set shift count variable for current lump sector size
+## lmpsize:      Set shift count variable for current lump sector size
 
   The purpose of this routine is to determine how many shifts are needed
 to convert sector numbers to lump numbers and vice versa.
@@ -1384,7 +1386,7 @@ variable.
 
 -----------------------------------------------------------------------------
 
-loadsec:      Load current sector from fildes
+## loadsec:      Load current sector from fildes
 
   This function is normally called after a seek was performed on a FILDES.
 Since a seek could leave the file pointer in a sector other than the one
@@ -1458,7 +1460,7 @@ the sector where the file pointer is located.
 
 -----------------------------------------------------------------------------
 
-lumptosec:    Convert lump number to first sector number in lump
+## lumptosec:    Convert lump number to first sector number in lump
 
   This function will take a lump number and return the first sector number
 for the lump.
@@ -1484,7 +1486,7 @@ registers, no copy is needed of the result, so the routine just returns.
 
 -----------------------------------------------------------------------------
 
-mkdir:        Make a directory
+## mkdir:        Make a directory
 
   This routine is the destination of the o_mkdir API call and is used to
 create a new subdirectory on the filesystem.
@@ -1520,7 +1522,7 @@ cleared to indicate a success.
 
 -----------------------------------------------------------------------------
 
-open:         Open a file
+## open:         Open a file
 
   This function is the destintion of the o_open API call and is used to
 open/create a file.
@@ -1576,7 +1578,7 @@ to the caller.
 
 -----------------------------------------------------------------------------
 
-opendir:      Open a directory
+## opendir:      Open a directory
 
   This function is the destination of the o_opendir command and is used
 to open a directory as a FILDES.
@@ -1592,7 +1594,7 @@ caller.
 
 -----------------------------------------------------------------------------
 
-openmd:       Open master directory
+## openmd:       Open master directory
 
   This routine is used in order to open the Master Directory as a file.  It
 returns a FILDES that is opened on the Master Directory.
@@ -1626,7 +1628,7 @@ to load the first sector of the Master Directory.
 
 -----------------------------------------------------------------------------
 
-rawread:      Read a sector from disk
+## rawread:      Read a sector from disk
 
   This function is called whenever Elf/OS needs to read a physical sector
 from disk.  It will first call secloaded: to determine if the requested
@@ -1661,7 +1663,7 @@ the caller.
 
 -----------------------------------------------------------------------------
 
-rawwrite:     Write a sector to disk
+## rawwrite:     Write a sector to disk
 
   This routine writes the sector in the specified FILDES's DTA.  First a
 check is made to determine if the requested write located in R8:R7 is a 
@@ -1695,7 +1697,7 @@ the routine returns to the caller.
 
 -----------------------------------------------------------------------------
 
-read:         Read bytes from file
+## read:         Read bytes from file
 
   This function is the destination of the o_read API call.  Its purpose is
 to read bytes from the open FILDES pointed to by RD.
@@ -1725,7 +1727,7 @@ R9 to point to the beginning of the newly read sector data.
 
 -----------------------------------------------------------------------------
 
-readlump:     Read a value from a lat entry
+## readlump:     Read a value from a lat entry
 
   This routine is called whenever a LAT entry needs to be read.  The LAT
 table begins in sector 17 and in type 1 filesystems contains 256 LAT entries
@@ -1743,7 +1745,7 @@ is located.  This value is then read into RA for return to the caller.
 
 -----------------------------------------------------------------------------
 
-readsys:      Read a sector using system fildes
+## readsys:      Read a sector using system fildes
 
   This routine is used by Elf/OS whenever it needs to read system related
 sectors.  The system DTA is located at 100h and sysfildes is the FILDES that
@@ -1760,7 +1762,7 @@ back to the caller.
 
 -----------------------------------------------------------------------------
 
-rename:       Rename a file
+## rename:       Rename a file
 
   This routine is the destiantion of the o_rename API call and is used to
 rename a file.  This routine renames a file by altering its name in its
@@ -1798,7 +1800,7 @@ to restore the consumed registers and return to the caller.
 
 -----------------------------------------------------------------------------
 
-rmdir:        Remove a directory
+## rmdir:        Remove a directory
 
   This routine is the destination of the o_rmdir API call and its purpose
 is to remove a subdirectory from the filesystem.  A directory can only be
@@ -1840,7 +1842,7 @@ made to delgo: (in delete:) to complete the deletion.
 
 -----------------------------------------------------------------------------
 
-searchdir:    Search a directory for an entry
+## searchdir:    Search a directory for an entry
 
   This function is used in order to find the DIRENT for the filename pointed
 to by RC.  This function is called with the directory opened and an
@@ -1882,7 +1884,7 @@ consumed registers are recovered before returning to the caller.
 
 -----------------------------------------------------------------------------
 
-secloaded:    Determine if needed sector is already loaded
+## secloaded:    Determine if needed sector is already loaded
 
   This function determines if a reqested sector read refers to the sector
 that is already in the DTA for the specified FILDES.
@@ -1900,7 +1902,7 @@ sector is already in the DTA.
 
 -----------------------------------------------------------------------------
 
-secofslmp:    Convert latSector/latOffset to lump number
+## secofslmp:    Convert latSector/latOffset to lump number
 
   This function is used to convert a LAT sector number and LAT sector
 offset into a lump number.  For type 1 filesystems the fomula for this is:
@@ -1922,7 +1924,7 @@ maps cleanly into RA.
 
 -----------------------------------------------------------------------------
 
-sectolump:    Convert sector number to lump number
+## sectolump:    Convert sector number to lump number
 
   This function is used to convert the sector number in R8:R7 to the lump
 number that contains this sector.
@@ -1950,7 +1952,7 @@ number is returned in RA.
 
 -----------------------------------------------------------------------------
 
-sector0:      Load sector 0
+## sector0:      Load sector 0
 
   This routine is called whenever Elf/OS needs the System Data Sector.
 
@@ -1961,7 +1963,7 @@ to their original values and control is returned to the caller.
 
 -----------------------------------------------------------------------------
 
-seek:         Perform file seek
+## seek:         Perform file seek
 
   This function is the destination of the o_seek API call.  The purpose of
 this routine is the change the current file position in the provided FILDES.
@@ -1996,7 +1998,7 @@ order to add in the caller's offset.
 
 -----------------------------------------------------------------------------
 
-seekend:      Seek fildes to end
+## seekend:      Seek fildes to end
 
   This function will move the current file pointer in the FILDES pointed to
 by RD to the end of the file.  This is normally called by seek: or open:.
@@ -2036,7 +2038,7 @@ continue walking the lump chain.
 
 -----------------------------------------------------------------------------
 
-setfddrof:    Set dir offset in file descriptor
+## setfddrof:    Set dir offset in file descriptor
 
   This functions is used to set the directory offset in the FILDES pointed
 to by RD.  The dir offset is located at offset 13 in the FILDES, so RD is
@@ -2046,7 +2048,7 @@ the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-setfddrsc:    Set dir sector in file descriptor
+## setfddrsc:    Set dir sector in file descriptor
 
   This functions sets the directory sector field of the FILDES pointed to by
 RD.  The dir sector entry is located at offset 9 in the FILDES, so RD is
@@ -2056,7 +2058,7 @@ the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-setfddta:     Set DTA in file descriptor
+## setfddta:     Set DTA in file descriptor
 
   This function will set the DTA in the FILDES pointed to by RD to the
 address in RF.  The DTA address is in offsets 4 and 5 of the FILDES, so
@@ -2066,7 +2068,7 @@ to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-setfdeof:     Set EOF in file descriptor
+## setfdeof:     Set EOF in file descriptor
 
   This function is used to set the EOF field in the FILDES pointed to by RD.
 The EOF is at offset 6 and 7 in the FILDES so RD is incremented by 6 before
@@ -2076,7 +2078,7 @@ before returnign.
 
 -----------------------------------------------------------------------------
 
-setfdflgs:    Set flags in file descriptor
+## setfdflgs:    Set flags in file descriptor
 
   This function sets the file flags in the FILDES pointed to by RD.  The
 file flags are located at offset 8 in the FILDES, so RD is incremented by
@@ -2086,7 +2088,7 @@ returning.
 
 -----------------------------------------------------------------------------
 
-setfdofs:     Set offset in file descriptor
+## setfdofs:     Set offset in file descriptor
 
   This function will take the offset in R8:R7 and write it into the current
 offset pointer in the FILDES pointed to by RD.  Since the current offset is
@@ -2097,7 +2099,7 @@ the FILDES before returning
 
 -----------------------------------------------------------------------------
 
-setfdsec:     Set current sector in file descriptor
+## setfdsec:     Set current sector in file descriptor
 
   This function sets the current sector field of the FILDES pointed to by RD.
 The current sector field is located at offset 15 of the FILDES, so RD is
@@ -2107,7 +2109,7 @@ RD back to the beginning of the FILDES before returning.
 
 -----------------------------------------------------------------------------
 
-settrx:       Setup transfer address
+## settrx:       Setup transfer address
 
   This routine is called by read: and write: in order to set R9 up as a
 pointer into the files DTA at the correct offset based upon the current
@@ -2118,7 +2120,7 @@ memory.  The reason why 9 bits is significant is that a sector can hold
 
 -----------------------------------------------------------------------------
 
-setupfd:      Setup a new file descriptor
+## setupfd:      Setup a new file descriptor
 
   This routine is called whenever a file is successfully opened or created.
 This routine will setup the FILDES to hold the correct data for the open
@@ -2159,7 +2161,7 @@ to set the EOF value into the FILDES.
 
 -----------------------------------------------------------------------------
 
-startlump:    Get starting lump for a file
+## startlump:    Get starting lump for a file
 
   This function is called whenever Elf/OS needs to know what lump numbers is
 the first lump for the file of the specified FILDES.  The FILDES does not
@@ -2190,7 +2192,7 @@ of the caller's FILDES before control is returned to the caller.
 
 -----------------------------------------------------------------------------
 
-validate:     Check filename to make sure it is valid
+## validate:     Check filename to make sure it is valid
 
   This function is called by several Elf/OS routines in order to validate
 that the filename passed in through the API conforms to valid filenames.
@@ -2217,7 +2219,7 @@ caller.
 
 -----------------------------------------------------------------------------
 
-warmboot:     Warmboot entry point
+## warmboot:     Warmboot entry point
  
   This routine is the destination of the o_warmboot API call and is also
 executed following the coldboot: procedure.
@@ -2232,7 +2234,7 @@ working directory.
 
 -----------------------------------------------------------------------------
 
-write:        Write bytes to file
+## write:        Write bytes to file
 
   This function is the destination of the o_write API call and is used to
 write bytes to an open FILDES.
@@ -2282,7 +2284,7 @@ restores all the consumed registers and then returns to the caller.
 
 -----------------------------------------------------------------------------
 
-writelump:    Write a value to a lat entry
+## writelump:    Write a value to a lat entry
 
   This routine is called in order to write an entry to the LAT table.  The
 LAT table begins at sector 17 and for type 1 filesystems contains 256 LAT
@@ -2313,7 +2315,7 @@ control is returned to the caller.
 
 -----------------------------------------------------------------------------
 
-writesys:     Write a sectur using system fildes
+## writesys:     Write a sectur using system fildes
 
   This routine is used by Elf/OS whenever it needs to write system related
 sectors.  The system DTA is located at 100h and sysfildes is the FILDES that
@@ -2333,73 +2335,75 @@ back to the caller.
 
 Summary of Elf/OS subroutines:
 ------------------------------
-append:       Append a lump to end of current file
-chdir:        Change/view current directory
-checkeof:     Check if file is at end
-checkwrt:     Check to see if a sector needs to be written
-cklstlmp:     Check for last lump and EOF
-close:        Close a file
-cmdlp:        Main command loop
-coldboot:     Coldboot routine
-create:       Create a new file
-delchain:     Delete a chain of lumps
-delete:       Delete a file
-exec:         Execute a program
-execbin:      Execute a file from /bin
-finalsl:      Make sure a name has a final slash
-finddir:      Find a directory
-findsep:      Split pathname at separator
-follow:       Follow a directory tree
-freedir:      Get a free directory entry
-freelump:     Find a free lump
-getfddrof:    Get dir offset from file descriptor
-getfddrsc:    Get dir sector from file descriptor
-getfddta:     Get DTA from file descriptor
-getfdeof:     Get EOF from file descriptor
-getfdflgs:    Get flags from file descriptor
-getfdofs:     Get offset from file descriptor
-getfdsec:     Get current sector from file descriptor
-getsecofs:    Get current sector/offset
-gettmdt:      Get time and date from BIOS
-incofs:       Increment current offset in fildes
-lmpsecofs:    Convert lump number to latSector/latOffset
-lmpsize:      Set shift count variable for current lump sector size
-loadsec:      Load current sector from fildes
-lumptosec:    Convert lump number to first sector number in lump
-mkdir:        Make a directory
-open:         Open a file
-opendir:      Open a directory
-openmd:       Open master directory
-rawread:      Read a sector from disk
-rawwrite:     Write a sector to disk
-read:         Read bytes from file
-readlump:     Read a value from a lat entry
-readsys:      Read a sector using system fildes
-rename:       Rename a file
-rmdir:        Remove a directory
-searchdir:    Search a directory for an entry
-secloaded:    Determine if needed sector is already loaded
-secofslmp:    Convert latSector/latOffset to lump number
-sectolump:    Convert sector number to lump number
-sector0:      Load sector 0
-seek:         Perform file seek
-seekend:      Seek fildes to end
-setfddrof:    Set dir offset in file descriptor
-setfddrsc:    Set dir sector in file descriptor
-setfddta:     Set DTA in file descriptor
-setfdeof:     Set EOF in file descriptor
-setfdflgs:    Set flags in file descriptor
-setfdofs:     Set offset in file descriptor
-setfdsec:     Set current sector in file descriptor
-settrx:       Setup transfer address
-setupfd:      Setup a new file descriptor
-startlump:    Get starting lump for a file
-validate:     Check filename to make sure it is valid
-warmboot:     Warmboot entry point
-write:        Write bytes to file
-writelump:    Write a value to a lat entry
-writesys:     Write a sectur using system fildes
 
+| Subroutine    | Purpose |
+|---------------|---------|
+| append:       | Append a lump to end of current file |
+| chdir:        | Change/view current directory |
+| checkeof:     | Check if file is at end |
+| checkwrt:     | Check to see if a sector needs to be written |
+| cklstlmp:     | Check for last lump and EOF |
+| close:        | Close a file |
+| cmdlp:        | Main command loop |
+| coldboot:     | Coldboot routine |
+| create:       | Create a new file |
+| delchain:     | Delete a chain of lumps |
+| delete:       | Delete a file |
+| exec:         | Execute a program |
+| execbin:      | Execute a file from /bin |
+| finalsl:      | Make sure a name has a final slash |
+| finddir:      | Find a directory |
+| findsep:      | Split pathname at separator |
+| follow:       | Follow a directory tree |
+| freedir:      | Get a free directory entry |
+| freelump:     | Find a free lump |
+| getfddrof:    | Get dir offset from file descriptor |
+| getfddrsc:    | Get dir sector from file descriptor |
+| getfddta:     | Get DTA from file descriptor |
+| getfdeof:     | Get EOF from file descriptor |
+| getfdflgs:    | Get flags from file descriptor |
+| getfdofs:     | Get offset from file descriptor |
+| getfdsec:     | Get current sector from file descriptor |
+| getsecofs:    | Get current sector/offset |
+| gettmdt:      | Get time and date from BIOS |
+| incofs:       | Increment current offset in fildes |
+| lmpsecofs:    | Convert lump number to latSector/latOffset |
+| lmpsize:      | Set shift count variable for current lump sector size |
+| loadsec:      | Load current sector from fildes |
+| lumptosec:    | Convert lump number to first sector number in lump |
+| mkdir:        | Make a directory |
+| open:         | Open a file |
+| opendir:      | Open a directory |
+| openmd:       | Open master directory |
+| rawread:      | Read a sector from disk |
+| rawwrite:     | Write a sector to disk |
+| read:         | Read bytes from file |
+| readlump:     | Read a value from a lat entry |
+| readsys:      | Read a sector using system fildes |
+| rename:       | Rename a file |
+| rmdir:        | Remove a directory |
+| searchdir:    | Search a directory for an entry |
+| secloaded:    | Determine if needed sector is already loaded |
+| secofslmp:    | Convert latSector/latOffset to lump number |
+| sectolump:    | Convert sector number to lump number |
+| sector0:      | Load sector 0 |
+| seek:         | Perform file seek |
+| seekend:      | Seek fildes to end |
+| setfddrof:    | Set dir offset in file descriptor |
+| setfddrsc:    | Set dir sector in file descriptor |
+| setfddta:     | Set DTA in file descriptor |
+| setfdeof:     | Set EOF in file descriptor |
+| setfdflgs:    | Set flags in file descriptor |
+| setfdofs:     | Set offset in file descriptor |
+| setfdsec:     | Set current sector in file descriptor |
+| settrx:       | Setup transfer address |
+| setupfd:      | Setup a new file descriptor |
+| startlump:    | Get starting lump for a file |
+| validate:     | Check filename to make sure it is valid |
+| warmboot:     | Warmboot entry point |
+| write:        | Write bytes to file |
+| writelump:    | Write a value to a lat entry |
+| writesys:     | Write a sectur using system fildes |
 
 
 Package Format:
@@ -2413,13 +2417,13 @@ filesystem.
 is in the package and where it is located.  The table has the following
 format:
 
-n bytes   - The name of the package as an ASCIIZ string.
-2 bytes   - Offset into the package where the file is found
-2 bytes   - Ending offset
-2 bytes   - file load address (this and following 4 bytes are the executable
-            header)
-2 bytes   - Number of bytes to load
-2 bytes   - Execution address
+    n bytes   - The name of the package as an ASCIIZ string.
+    2 bytes   - Offset into the package where the file is found
+    2 bytes   - Ending offset
+    2 bytes   - file load address (this and following 4 bytes are the executable
+                header)
+    2 bytes   - Number of bytes to load
+    2 bytes   - Execution address
 
   The next entry in the table would then follow, or a 00 byte to indicate
 that there are no more entries.
@@ -2443,7 +2447,7 @@ exist (for example for the Elf 2000) which are in a different format.
 BININST.  Each of the steps 1 through 4 on the installer menu runs one of
 these tools.
 
-HDINIT (step 1):
+### HDINIT (step 1):
 
   The main purpose of HDINIT is to determine how many sectors the disk
 device contains.  It operates in 2 modes, Quick and Full.  In Quick
@@ -2459,7 +2463,7 @@ number wrap around and start counting up again from zero.
   Once the sector count has been determined the count will be written to
 the SDS (sector 0) at offset 100h-103h.
 
-FSGEN (step 2):
+### FSGEN (step 2):
 
   FSGEN reads the sector count set by HDINIT and determines how many lumps
 are contained on the disk.  Based upon the number of lumps it creates the
@@ -2478,14 +2482,14 @@ sector 0.
   The currently shipping version of FSGEN will only create type 1 filesystems
 with 8 sectors per lump.
 
-SYS (step 3):
+### SYS (step 3):
 
   SYS copies the kernel image from the install package into the Kernel
 Image Block, sectors 1 through 16 of the disk.  After a system has been
 setup and running, this option can be used to load new kernel images into
 the KIB.
 
-BININST (step 4):
+### BININST (step 4):
 
   BININST is used to copy the rest of the Elf/OS utilities into the /BIN 
 directory on the disk.  BININST works by copying the kernel image from

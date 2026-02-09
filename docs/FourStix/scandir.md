@@ -1,5 +1,5 @@
-SCANDIR - Scan a directory and fix invalid file names
-Usage: scandir dirname
+## SCANDIR - Scan a directory and fix invalid file names
+### Usage: scandir dirname
 
 This program will scan a directory and replace invalid characters in filenames with an underscore. 
 So for example if you had a file called '/file' after running scandir the file will be named '_file'.

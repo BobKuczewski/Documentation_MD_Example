@@ -6,6 +6,7 @@ Introduction:
   Thank you for your interest in Elf/OS.  Elf/OS is a disk based operating
 system, or DOS, for Elf class computers.  It currently provides access to
 IDE/CF drives up to 268mb in size.
+
   The Elf/OS system consists of two major subsystems. The first is the BIOS,
 or Basic Input/Output Subsystem.  The BIOS provides a uniform interface to
 Elf/OS irregardless of the underlying hardware.  The BIOS was designed to be
@@ -47,14 +48,14 @@ from 8000H through EFFFh.
    baud rate information.  After which you should see this menu on your
    terminal:
 
-   Elf/Os Installation
-   1> Run hard drive init tool
-   2> Run filesystem gen tool
-   3> Run sys tool
-   4> Install binaries
-   5> Boot Elf/OS
+       Elf/Os Installation
+       1> Run hard drive init tool
+       2> Run filesystem gen tool
+       3> Run sys tool
+       4> Install binaries
+       5> Boot Elf/OS
 
-      Option ?
+       Option ?
 
 4. NOTE: This step need only be performed once for a given hard drive.
    Running this step erases any information stored on the drive.
@@ -70,8 +71,8 @@ from 8000H through EFFFh.
 
    When the init is complete you should see somethign similar to:
 
-   Total Sectors: 53248
-   Format Complete
+       Total Sectors: 53248
+       Format Complete
 
    and the installation menu will again be presented.
 
@@ -82,11 +83,11 @@ from 8000H through EFFFh.
    Run option 2 to setup the Elf/OS filesystem.  This step should only take
    a couple of minutes.  You should get a mesage similar to:
 
-  Total Sectors: 53248
-  AU Size: 8
-  Total AUs: 6656
-  Master Dir Sector: 48
-  Filesystem generation complete
+       Total Sectors: 53248
+       AU Size: 8
+       Total AUs: 6656
+       Master Dir Sector: 48
+       Filesystem generation complete
 
   Then the installation menu will be presented again.
 
@@ -95,7 +96,7 @@ from 8000H through EFFFh.
    installing new kernel versions.  At the conclusion of the command you 
    should see:
 
-  System copied.
+       System copied.
 
    and then the installation menu will be displayed again.
 
@@ -150,7 +151,7 @@ time Elf/OS is waiting for you to give it a command you will get the Elf/OS
 Ready prompt.  Lets take a look at the root directory:
 
         Elf/OS Ready
-DIR
+            DIR
         PROJECTS/
         FORTH/
         BASIC/
@@ -159,7 +160,7 @@ DIR
   Lets also take a look at what is in the BIN/ directory.  Any programs in the
 BIN/ directory can be executed from anywhere.
 
-DIR BIN/
+        DIR BIN/
         DIR
         CHDIR
         COPY
@@ -170,61 +171,61 @@ DIR BIN/
 
   To get the version of Elf/OS, use the VER command:
 
-VER
+        VER
         0.2.1 Build 5 7/12/2004
 
   You can also use the VER command on the utilities:
 
-VER BIN/DIR
+        VER BIN/DIR
         7/9/2004
 
   Lets make a directory to work in:
 
-MKDIR TUTORIAL
+        MKDIR TUTORIAL
 
   We will now change to the that direcotry:
 
-CHDIR TUTORIAL/
+        CHDIR TUTORIAL/
 
   We can DIR the directory and see what is there.  Since we just made it, it
 should be empty:
-DIR
+        DIR
         (will be empty)
 
   CHDIR when used without a pathname will show you what the current directory
 is:
 
-CHDIR
+        CHDIR
         /TUTORIAL/
 
   Lets use the EDIT program and create a small assembly language program:
 
-EDIT BAUD.ASM
+        EDIT BAUD.ASM
         New file
         >
 
   The I command in edit allows us to add lines to the file:
 
-I        ORG  2000H
-ISTART:  GLO  RE
-I        STR  R2
-I        SEX  R2
-I        OUT  4
-I        DEC  R2
-I        SEP  R5
-I        END  START
-S
-Q
+        I        ORG  2000H
+        ISTART:  GLO  RE
+        I        STR  R2
+        I        SEX  R2
+        I        OUT  4
+        I        DEC  R2
+        I        SEP  R5
+        I        END  START
+        S
+        Q
         Elf/OS Ready
 
   If we look at the directory now, we will see our new file:
 
-DIR
+        DIR
         BAUD.ASM
 
   Using the TYPE command we can look at the contents of an ASCII file:
 
-TYPE BAUD.ASM
+        TYPE BAUD.ASM
                 ORG  2000H
         START:  GHI  RE
                 STR  R2
@@ -238,7 +239,7 @@ TYPE BAUD.ASM
 in the output list, then you probably made a typing error when you created
 the BAUD.ASM file.  Using the editor you can go back and fix it.
 
-ASM BAUD
+        ASM BAUD
                 ORG  2000H
         START:  GHI  RE
                 STR  R2
@@ -251,13 +252,13 @@ ASM BAUD
   If we do a directory now, we will now see the file created by the
 assembler:
 
-DIR
+        DIR
         BAUD.ASM
         BAUD
 
   To view the contents of a binary file, you can use HEXDUMP:
 
-HEXDUMP BAUD
+        HEXDUMP BAUD
         :0000 20 00 20 05 20 00 9E 52 E2 64 22 D5
 
   If you are familiar with 1802 opcodes, you will notice there are more
@@ -268,106 +269,106 @@ Elf/OS where the program is to be loaded and where the exec address is.
   We can now run the program.  It will not output anything to the terminal,
 but will output the baud constant to the data displays of your elf.
 
-BAUD
+        BAUD
         (will output baud rate constant to data displays)
 
   Lets go ahead now and delete the executable BAUD program
 
-DEL BAUD
+        DEL BAUD
 
   Performaing a directory will confirm the deletion of the file:
 
-DIR
+        DIR
         BAUD.ASM
 
   The MINIMON utility can be used to view or modify memory:
 
-MINIMON
+        MINIMON
         >
 
   The ? command allows you to view memory:
 
-?3000
+        ?3000
         3000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
         3010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
         (more lines after these)
 
   The ! command allows us to write bytes into memory
 
-!3000 7A 7B 30 00
+        !3000 7A 7B 30 00
 
   Lets look at what we wrote:
 
-?3000
+        ?3000
         3000: 7A 7B 30 00 00 00 00 00 00 00 00 00 00 00 00 00
         3010: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
         (more lines after these)
 
   The / command will return us to Elf/OS
-/
+        /
         Elf/OS Ready
 
   You can use the SAVE command to write a program in memory to disk:
 
-SAVE
+        SAVE
         File dump utility
         Start address:
-3000
+        3000
         End address:
-3004
+        3004
         Exec address:
-3000
+        3000
         Filename:
-BLINK
+        BLINK
         Elf/OS Ready
 
   Performing a directory now will show the SAVEd file.
-DIR
+        DIR
         BAUD.ASM
         BLINK
 
   You can also do a HEXUMP of it.  Again notice that the SAVE command added
 the 6 byte execution header:
 
-HEXDUMP BLINK
+        HEXDUMP BLINK
         :0000 30 00 00 05 30 00 7A 7B 30 00 00
 
   The COPY command can be used to copy one file to another:
 
-COPY BLINK LED
+        COPY BLINK LED
 
   The DIR command will confirm the new file:
 
-DIR
+        DIR
         BAUD.ASM
         BLINK
         LED
 
   Now delete the BLINK program:
 
-DEL BLINK
+        DEL BLINK
 
   And again DIR will show you what has happened:
 
-DIR
+        DIR
         BAUD.ASM
         LED
 
   You can use the RENAME command to change the name of a file:
 
-RENAME LED BLINK
+        RENAME LED BLINK
 
-DIR
+        DIR
         BAUD.ASM
         BLINK
 
   The CHDIR command with just a / will return us to the root directory:
 
-CHDIR /
+        CHDIR /
 
   Here we are back at the root.  notice the new TUTORIAL/ directory:
 
-DIR
+        DIR
         PROJECTS/
         FORTH/
         BASIC/
@@ -377,7 +378,7 @@ DIR
   To find out how much space is left on your disk, you can use the FREE
 command:
 
-FREE
+        FREE
         Total AUs: 6656
         Free AUs : 6598
 
@@ -404,20 +405,19 @@ the directory name.
 
 Examples:
 
-  MKDIR BIN        - Create directory BIN
-  DIR BIN/         - Show contents of directory BIN
-  CHDIR BIN/       - Change directory to BIN
-  CHDIR /          - Change directory to the root direcotory
+    MKDIR BIN        - Create directory BIN
+    DIR BIN/         - Show contents of directory BIN
+    CHDIR BIN/       - Change directory to BIN
+    CHDIR /          - Change directory to the root direcotory
 
   When specifying pathnames, if there is a leading /, then the pathname is
 relative to the root directory.  If there is no leading /, then the pathname
 is relative to the directory you are currently in.
 
 
-Command Reference:
-------------------
-
-CHDIR              Change/View current directory
+# Command Reference:
+-------------------
+### CHDIR              Change/View current directory
 
 Usage: CHDIR       - Show current directory
        CHDIR path  - Change current directory to specified path
@@ -425,7 +425,7 @@ Usage: CHDIR       - Show current directory
 --------------------------------------------------------------------------
 
 
-COPY               Copy a file
+### COPY               Copy a file
 
 Usage: COPY src dest
        src         - filename of file to copy
@@ -433,14 +433,14 @@ Usage: COPY src dest
 
 --------------------------------------------------------------------------
 
-DEL                Delete a file
+### DEL                Delete a file
 
 Usage: DEL pathname
        pathname    - pathname of file to delete
 
 --------------------------------------------------------------------------
 
-DIR                Show disk directory
+### DIR                Show disk directory
 
 Usage: DIR         - Show current directory
        DIR path    - Show directory of specified path
@@ -448,7 +448,7 @@ Usage: DIR         - Show current directory
 
 --------------------------------------------------------------------------
 
-DUMP               Dump memory contents to a disk file
+### DUMP               Dump memory contents to a disk file
 
 Usage: DUMP
 
@@ -457,7 +457,7 @@ Notes: DUMP will prompt for the starting address, the ending address, and
 
 --------------------------------------------------------------------------
 
-EDIT               Edit an ASCII file
+### EDIT               Edit an ASCII file
 
 Usage: EDIT file
          file      - File to edit.  The file will be create if it does not
@@ -490,14 +490,14 @@ Notes: Once edit is running you will get an '>' prompt.  The following
 
 --------------------------------------------------------------------------
 
-EXEC               Execute program already in memory
+### EXEC               Execute program already in memory
 
 Usage: EXEC addr
          addr      - Address to begin execution at
 
 --------------------------------------------------------------------------
 
-FREE               Show disk usage
+### FREE               Show disk usage
 
 Usage: FREE
 
@@ -506,14 +506,14 @@ Notes: This program will show the total number of AUs per disk as well as
 
 --------------------------------------------------------------------------
 
-HEXDUMP            Show contents of a file in hex format
+### HEXDUMP            Show contents of a file in hex format
 
 Usage: HEXDUMP file
          file      - File to show the contents of
 
 --------------------------------------------------------------------------
 
-INSTALL            Pachage installer
+### INSTALL            Pachage installer
 
 Usage: INSTALL
 
@@ -523,7 +523,7 @@ Notes: This program is similar to option 4 of the Elf/OS installer.  It
 
 --------------------------------------------------------------------------
 
-LOAD               Load executable file into memory without executing
+### LOAD               Load executable file into memory without executing
 
 Usage: LOAD file
          file      - file to load into memory
@@ -533,7 +533,7 @@ Notes: After loading the file, LOAD will display the start address and exec
 
 --------------------------------------------------------------------------
 
-MINIMON            Mini monitor for changing/viewing memory
+### MINIMON            Mini monitor for changing/viewing memory
 
 Usage: MINIMON
 
@@ -548,13 +548,13 @@ Notes: After minimon is loaded you will get a '>' prompt.  The following
 
 --------------------------------------------------------------------------
 
-MKDIR              Make a directory
+### MKDIR              Make a directory
 
 Usage: MKDIR path
 
 --------------------------------------------------------------------------
 
-PATCH              Applies program patches
+### PATCH              Applies program patches
 
 Usage: PATCH file
          file      - Patch control file
@@ -574,7 +574,7 @@ Notes: The patch control file is fomatted as follows:
 
 --------------------------------------------------------------------------
 
-RENAME             Rename a file
+### RENAME             Rename a file
 
 Usage: RENAME old new
          old       - Old filename
@@ -585,13 +585,13 @@ Notes: RENAME cannot be used to move a file from one directory to another,
 
 --------------------------------------------------------------------------
 
-RMDIR              Remove a directory
+### RMDIR              Remove a directory
 
 Usage: RMDIR path
   
 --------------------------------------------------------------------------
 
-SAVE               Save memory contents to executable file
+### SAVE               Save memory contents to executable file
 
 Usage: SAVE
 
@@ -600,7 +600,7 @@ Notes: Save will prompt for the starting address in memory, the ending
 
 --------------------------------------------------------------------------
 
-STAT               View file statistics
+### STAT               View file statistics
 
 Usage: STAT filename
 
@@ -608,7 +608,7 @@ Notes: Currently shows size of file
 
 --------------------------------------------------------------------------
 
-TYPE               Show contents of an ASCII file
+### TYPE               Show contents of an ASCII file
 
 Usage: TYPE file
          file      - Filename to type.
@@ -618,7 +618,8 @@ Usage: TYPE file
 
 API Reference:
 --------------
-0306h  O_OPEN    - Open file
+### 0306h  O_OPEN    - Open file
+```
        Args:  RF = Pointer to pathname
               RD = Pointer to file descriptor, DTA must be pre-filled
               R7 = Flags
@@ -629,14 +630,15 @@ API Reference:
                  RD - File descriptor
                  DF=1 - Error
                     D - Error Code
+```
 
-0312h  O_CLOSE   - Close file
+### 0312h  O_CLOSE   - Close file
        Args:  RD = File descriptor
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-030Ch  O_WRITE   - Write to file
+### 030Ch  O_WRITE   - Write to file
        Args:  RD = File descriptor
               RF = Pointer to bytes to write
               RC = Count of bytes to write
@@ -645,7 +647,7 @@ API Reference:
                  DF=1 - Error
                     D - Error Code
 
-0309h  O_READ    - Read from file
+### 0309h  O_READ    - Read from file
        Args:  RD = File descriptor
               RF = Pointer to buffer
               RC = Count of bytes to read
@@ -654,7 +656,7 @@ API Reference:
                  DF=1 - Error    
                     D - Error Code
 
-030Fh  O_SEEK    - Change file position
+### 030Fh  O_SEEK    - Change file position
        Args:  R8 = High word of seek address
               R7 = Low word of seek address
               RD = File descriptor
@@ -668,89 +670,90 @@ API Reference:
                  DF=1 - Error
                     D - Error Code
 
-031Bh  O_RENAME  - Rename a file
+### 031Bh  O_RENAME  - Rename a file
        Args:  RF = Source filename
               RC = Destination filename
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0318h  O_DELETE  - Delete a file
+### 0318h  O_DELETE  - Delete a file
        Args:  RF = Filename
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-031Eh  O_EXEC    - Execute a program
+### 031Eh  O_EXEC    - Execute a program
        Args:  RF = Command line
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0315h  O_OPENDIR - Open directory for reading
+### 0315h  O_OPENDIR - Open directory for reading
        Args:  RF = Pathname
        Returns:  RD - File descriptor
                  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0321h  O_MKDIR   - Make directory
+### 0321h  O_MKDIR   - Make directory
        Args:  RF = Pathname
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0324h  O_CHDIR   - Change/Show current directory
+### 0324h  O_CHDIR   - Change/Show current directory
        Args:  RF = Pathname or buffer to place current path
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0327h  O_RMDIR   - Remove directory (must be empty)
+### 0327h  O_RMDIR   - Remove directory (must be empty)
        Args:  RF = Pathname
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-032Ah  O_RDLUMP  - Read value from LAT table
+### 032Ah  O_RDLUMP  - Read value from LAT table
        Args:  RA = lump number
        Returns: RA - value of lump
 
-032Dh  O_WRLUMP  - Write lump value into LAT table
+### 032Dh  O_WRLUMP  - Write lump value into LAT table
        Args:  RA - lump to write
               RF - value to write
        Returns: None
 
-0330h  O_TYPE - Type character to terminal
+### 0330h  O_TYPE - Type character to terminal
        Args: D - Character to type
              RE.1 - Baud constant
        Returns: None
 
-0333h  O_MSG - Type message to terminal
+### 0333h  O_MSG - Type message to terminal
        Args: RF - pointer to ASCIIZ message
              RE.1 - Baud constant
        Returns: None
 
-0336h  O_READKEY - Read character from terminal
+### 0336h  O_READKEY - Read character from terminal
        Args: RE.1 - Baud constant
        Returns: D - Read character
 
-0339h  O_INPUT - Input string from terminal
+### 0339h  O_INPUT - Input string from terminal
        Args: RF - Pointer to buffer
              RE.1 - Baud constant
        Returns: DF=0 - Input finished with <ENTER>
                 DF=1 - Input finished with <CTRL><C>
 
-033Ch  O_PRTSTAT - Get printer status
+### 033Ch  O_PRTSTAT - Get printer status
        Args: None
        Returns: D - printer status byte
 
-033Fh  O_PRINT - Print character on printer
+### 033Fh  O_PRINT - Print character on printer
        Args: D - Character to print
        Returns: None
 
 File Descriptor Format:
 -----------------------
+```
 0-3   - Current Offset
 4-5   - DTA
 6-7   - EOF byte
@@ -764,9 +767,11 @@ File Descriptor Format:
 9-12  - Dir Sector
 13-14   - Dir Offset
 15-18 - Current Sector
+```
 
 Hard Disk Structure: (LBA mode)
 -------------------------------
+```
 Sector 0            Boot Sector
 Sector 1-16         OS Kernel Image
 Sector 17-..AS      Allocation table
@@ -782,9 +787,11 @@ Sector 0 contains disk information:
 265-266  - Allocation unit size (in sectors)
 267-270  - Number of allocation units
 300-331  - Master dir direntry
+```
 
 Directory Structure:
 --------------------
+```
 byte   description
 0-3    First Lump, 0=free entry
 4-5    eof byte
@@ -793,12 +800,20 @@ byte   description
 7-8    Date (see coding below)
 9-10   Time (see coding below)
 11-31  filename
+```
 
-Date format:              Time Format:
-------------              ------------
-7654 3210  7654 3210      7654 3210  7654 3210
-|_______|____|_____|      |____||______||____|
-  YEAR    MO     DY         HR    MIN    SEC/2
+Date format:
+------------
+```
+7654 3210  7654 3210
+|_______|____|_____|
+  YEAR    MO     DY 
+```
 
-
-
+Time Format:
+------------
+```
+7654 3210  7654 3210
+|____||______||____|
+  HR    MIN    SEC/2
+```
