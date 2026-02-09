@@ -1,4 +1,5 @@
 ## Elf/OS BIOS API calls
+
 | Name       | Function   | Description |
 |------------|------------|-------------|
 | f_boot     | 0FF00h     | Cold boot from IDE | |
