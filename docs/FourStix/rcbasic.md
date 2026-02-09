@@ -153,39 +153,41 @@ following relational operators are available:
  <= - Less than or equal
  >= - Greater than or equal
 ```
+
 Order of Precedence:
 --------------------
 Expressions are evaluated with a given precedence to the operators.  For
 operators that are found at the same precedence level, they processed from
 left to right.  Rc/Basic follows the standard convention for operator
 precedence:
-
+```
 1. Functions and variable references
 2. * /
 3. + -
 4. AND OR & |
 5. = <> < > <= >=
-
+```
 Prececence can be altered by the use of parentheses.
 
 Expression Examples:
 --------------------
-Expression                              Result
-----------------------------------------------
-```
-2*5+3                                       13
-2*(5+3)                                     16
-5 OR 2                                       7
-5 AND 3                                      1
-5 * (3 < 4)                                 -5
-5 * (3 = 4)                                  0
-(3 < 4) AND (5 < 6)                         -1
-```
+
+| Expression                  |            Result |
+|-----------------------------|-------------------|
+| 2*5+3                       |                13 |
+| 2*(5+3)                     |                16 |
+| 5 OR 2                      |                 7 |
+| 5 AND 3                     |                 1 |
+| 5 * (3 < 4)                 |                -5 |
+| 5 * (3 = 4)                 |                 0 |
+| (3 < 4) AND (5 < 6)         |                -1 |
+
 In addition to numbers and variable references the following functions can
 also be utilized in expressions:
 ```
   ASC, FLG, FRE, INP, LEN, PEEK, RND, USR, VAL, VARPTR
 ```
+
 String Expressions:
 -------------------
   The only valid operator for string expressions is the concatenation operator
