@@ -618,7 +618,8 @@ Usage: TYPE file
 
 API Reference:
 --------------
-0306h  O_OPEN    - Open file
+### 0306h  O_OPEN    - Open file
+```
        Args:  RF = Pointer to pathname
               RD = Pointer to file descriptor, DTA must be pre-filled
               R7 = Flags
@@ -629,14 +630,15 @@ API Reference:
                  RD - File descriptor
                  DF=1 - Error
                     D - Error Code
+```
 
-0312h  O_CLOSE   - Close file
+### 0312h  O_CLOSE   - Close file
        Args:  RD = File descriptor
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-030Ch  O_WRITE   - Write to file
+### 030Ch  O_WRITE   - Write to file
        Args:  RD = File descriptor
               RF = Pointer to bytes to write
               RC = Count of bytes to write
@@ -645,7 +647,7 @@ API Reference:
                  DF=1 - Error
                     D - Error Code
 
-0309h  O_READ    - Read from file
+### 0309h  O_READ    - Read from file
        Args:  RD = File descriptor
               RF = Pointer to buffer
               RC = Count of bytes to read
@@ -654,7 +656,7 @@ API Reference:
                  DF=1 - Error    
                     D - Error Code
 
-030Fh  O_SEEK    - Change file position
+### 030Fh  O_SEEK    - Change file position
        Args:  R8 = High word of seek address
               R7 = Low word of seek address
               RD = File descriptor
@@ -668,89 +670,90 @@ API Reference:
                  DF=1 - Error
                     D - Error Code
 
-031Bh  O_RENAME  - Rename a file
+### 031Bh  O_RENAME  - Rename a file
        Args:  RF = Source filename
               RC = Destination filename
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0318h  O_DELETE  - Delete a file
+### 0318h  O_DELETE  - Delete a file
        Args:  RF = Filename
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-031Eh  O_EXEC    - Execute a program
+### 031Eh  O_EXEC    - Execute a program
        Args:  RF = Command line
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0315h  O_OPENDIR - Open directory for reading
+### 0315h  O_OPENDIR - Open directory for reading
        Args:  RF = Pathname
        Returns:  RD - File descriptor
                  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0321h  O_MKDIR   - Make directory
+### 0321h  O_MKDIR   - Make directory
        Args:  RF = Pathname
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0324h  O_CHDIR   - Change/Show current directory
+### 0324h  O_CHDIR   - Change/Show current directory
        Args:  RF = Pathname or buffer to place current path
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-0327h  O_RMDIR   - Remove directory (must be empty)
+### 0327h  O_RMDIR   - Remove directory (must be empty)
        Args:  RF = Pathname
        Returns:  DF=0 - Success
                  DF=1 - Error
                     D - Error Code
 
-032Ah  O_RDLUMP  - Read value from LAT table
+### 032Ah  O_RDLUMP  - Read value from LAT table
        Args:  RA = lump number
        Returns: RA - value of lump
 
-032Dh  O_WRLUMP  - Write lump value into LAT table
+### 032Dh  O_WRLUMP  - Write lump value into LAT table
        Args:  RA - lump to write
               RF - value to write
        Returns: None
 
-0330h  O_TYPE - Type character to terminal
+### 0330h  O_TYPE - Type character to terminal
        Args: D - Character to type
              RE.1 - Baud constant
        Returns: None
 
-0333h  O_MSG - Type message to terminal
+### 0333h  O_MSG - Type message to terminal
        Args: RF - pointer to ASCIIZ message
              RE.1 - Baud constant
        Returns: None
 
-0336h  O_READKEY - Read character from terminal
+### 0336h  O_READKEY - Read character from terminal
        Args: RE.1 - Baud constant
        Returns: D - Read character
 
-0339h  O_INPUT - Input string from terminal
+### 0339h  O_INPUT - Input string from terminal
        Args: RF - Pointer to buffer
              RE.1 - Baud constant
        Returns: DF=0 - Input finished with <ENTER>
                 DF=1 - Input finished with <CTRL><C>
 
-033Ch  O_PRTSTAT - Get printer status
+### 033Ch  O_PRTSTAT - Get printer status
        Args: None
        Returns: D - printer status byte
 
-033Fh  O_PRINT - Print character on printer
+### 033Fh  O_PRINT - Print character on printer
        Args: D - Character to print
        Returns: None
 
 File Descriptor Format:
 -----------------------
+```
 0-3   - Current Offset
 4-5   - DTA
 6-7   - EOF byte
@@ -764,9 +767,11 @@ File Descriptor Format:
 9-12  - Dir Sector
 13-14   - Dir Offset
 15-18 - Current Sector
+```
 
 Hard Disk Structure: (LBA mode)
 -------------------------------
+```
 Sector 0            Boot Sector
 Sector 1-16         OS Kernel Image
 Sector 17-..AS      Allocation table
@@ -782,9 +787,11 @@ Sector 0 contains disk information:
 265-266  - Allocation unit size (in sectors)
 267-270  - Number of allocation units
 300-331  - Master dir direntry
+```
 
 Directory Structure:
 --------------------
+```
 byte   description
 0-3    First Lump, 0=free entry
 4-5    eof byte
@@ -793,12 +800,20 @@ byte   description
 7-8    Date (see coding below)
 9-10   Time (see coding below)
 11-31  filename
+```
 
-Date format:              Time Format:
-------------              ------------
-7654 3210  7654 3210      7654 3210  7654 3210
-|_______|____|_____|      |____||______||____|
-  YEAR    MO     DY         HR    MIN    SEC/2
+Date format:
+------------
+```
+7654 3210  7654 3210
+|_______|____|_____|
+  YEAR    MO     DY 
+```
 
-
-
+Time Format:
+------------
+```
+7654 3210  7654 3210
+|____||______||____|
+  HR    MIN    SEC/2
+```
