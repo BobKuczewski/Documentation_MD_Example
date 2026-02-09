@@ -10,6 +10,7 @@ This entire site is generated from [Markdown Source Code.](https://github.com/Bo
 - [Topic 3](docs/Topic3/Topic3.md)
    - [Topic 3a](docs/Topic3/Topic3a.md)
    - [Topic 3b](docs/Topic3/Topic3b.md)
+   - [Topic 3c](docs/Topic3/Topic3c/README.md)
 - [Inside ElfOS by Michael H. Riley formatted by David Madole](docs/ElfOS_Inside/inside-elfos.md)
 - [Getting Started](#getting-started)
 
