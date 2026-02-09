@@ -1,3 +1,4 @@
+```
 Hard Disk Structure
 The hard disk is used in LBA mode, therefore all sector addresses are LBA addresses.
 
@@ -111,4 +112,4 @@ Program to initiate boot from HD
            plo     r2
            sex     r2
            lbr     0ff00h
-
+```
